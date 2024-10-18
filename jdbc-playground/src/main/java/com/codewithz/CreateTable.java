@@ -1,7 +1,10 @@
 package com.codewithz;
 
-import java.sql.*;
-public class ConnectionTest {
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+
+public class CreateTable {
 
     public static void main(String[] args) {
 
@@ -13,10 +16,17 @@ public class ConnectionTest {
 
             Connection con=DriverManager.getConnection(url,user,password);
 
-            if(con!=null){
-                System.out.println("Connection Established");
+            String query="Create table test_1 (id integer, name text)";
 
+            PreparedStatement pstmt=con.prepareStatement(query);
+
+            boolean status=pstmt.execute();
+
+            if(!status){
+                System.out.println("Table created successfully");
             }
+
+
         }
         catch(Exception e){
             e.printStackTrace();
